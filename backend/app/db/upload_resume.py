@@ -1,5 +1,6 @@
 from mongodb import get_connection, get_submissions_collection
 
+
 #submission for first review and analysis
 def create_submission(filename: str, parsed_text: str, job_title: str, company_name: str):
     

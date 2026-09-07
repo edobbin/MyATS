@@ -10,3 +10,4 @@ google-genai
 pymongo
 python-dotenv
 boto3
+ruff

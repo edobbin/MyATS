@@ -1,6 +1,8 @@
-from pymongo import MongoClient
-from dotenv import load_dotenv
 import os
+
+from dotenv import load_dotenv
+from pymongo import MongoClient
+from pymongo.errors import PyMongoError
 
 load_dotenv()
 
@@ -19,7 +21,7 @@ client = MongoClient(MONGO_URI)
 try:
     client.admin.command('ping')
     print("Connected to MongoDB successfully!")
-except Exception as e:
+except PyMongoError as e:
     print(f"Failed to connect to MongoDB: {e}")
 
 def get_connection():

@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.api import health, job_description, resumes, job_analysis, gemini_test
+from app.api import gemini_test, health, job_analysis, job_description, resumes
 
 app = FastAPI(
     title="MyATS API",
