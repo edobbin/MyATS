@@ -1,30 +1,33 @@
 {
   "name": "resume-analyzer",
   "private": true,
+
   "scripts": {
-    "frontend": "cd frontend && npm run dev",
-    "backend": "cd backend && .\\.venv\\Scripts\\python -m uvicorn app.main:app --reload",
-    "dev": "concurrently \"npm run backend\" \"npm run frontend\"",
-    "build-frontend": "cd frontend && npm run dev",
-    "build-backend": "cd backend && python -m uvicorn app.main:app --reload",
-    "build-dev": "concurrently \"npm run build-backend\" \"npm run build-frontend\"",
-    "setup-root": "npm install",
-    "setup-frontend": "cd frontend && npm install",
-    "ci-frontend": "cd frontend && npm ci",
-    "setup-backend": "cd backend && python -m venv .venv && .\\.venv\\Scripts\\python -m pip install --upgrade pip && .\\.venv\\Scripts\\python -m pip install -r requirements.txt",
-    "ci-backend": "cd backend && python -m pip install --upgrade pip && python -m pip install -r requirements.txt",
-    "setup": "npm install && npm run setup-frontend && npm run setup-backend",
-    "install-backend": "cd backend && .\\.venv\\Scripts\\python -m pip install -r requirements.txt",
-    "freeze-backend": "cd backend && .\\.venv\\Scripts\\python -m pip freeze > requirements.txt",
-    "instal-backend": "cd backend && python -m pip install -r requirements.txt",
-    "freez-backend": "cd backend && python -m pip freeze > requirements.txt"
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:frontend": "npm run dev --prefix frontend",
+    "dev:backend": "cd backend && .\\.venv\\Scripts\\python -m uvicorn app.main:app --reload",
+
+    "build": "npm run build:frontend",
+    "build:frontend": "npm run build --prefix frontend",
+
+    "setup": "npm install && npm run setup:frontend && npm run setup:backend",
+    "setup:frontend": "npm install --prefix frontend",
+    "setup:backend": "cd backend && python -m venv .venv && .\\.venv\\Scripts\\python -m pip install --upgrade pip && .\\.venv\\Scripts\\python -m pip install -r requirements.txt",
+
+    "install:backend": "cd backend && .\\.venv\\Scripts\\python -m pip install -r requirements.txt",
+    "freeze:backend": "cd backend && .\\.venv\\Scripts\\python -m pip freeze > requirements.txt",
+
+    "ci:frontend": "npm ci --prefix frontend",
+    "ci:backend": "cd backend && python -m pip install --upgrade pip && python -m pip install -r requirements.txt",
+
+    "docker:backend:build": "docker build -t myats-backend ./backend",
+    "docker:backend:run": "docker run --name myats-backend-dev --env-file ./backend/.env -p 8000:8000 myats-backend",
+
+    "docker:dev": "docker compose up --build",
+    "docker:dev:down": "docker compose down"
   },
+
   "devDependencies": {
     "concurrently": "^9.2.4"
-  },
-  "dependencies": {
-    "@aws-sdk/client-cognito-identity-provider": "^3.1124.0",
-    "oidc-client-ts": "^3.5.0",
-    "react-oidc-context": "^3.3.1"
   }
 }
