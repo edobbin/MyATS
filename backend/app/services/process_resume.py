@@ -1,7 +1,9 @@
-from app.services.resume_parser import parse_resume
-from fastapi import HTTPException, UploadFile, File
+from fastapi import HTTPException, UploadFile
 
-async def process_resume_upload(resume: UploadFile = File(...)) -> dict:
+from app.services.resume_parser import parse_resume
+
+
+async def process_resume_upload(resume: UploadFile) -> dict:
     #1 Check if the filename is provided
     if not resume.filename:
         raise HTTPException(status_code=400, detail="Missing file name.")

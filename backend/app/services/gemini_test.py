@@ -1,6 +1,5 @@
-import os
-from google import genai
 from dotenv import load_dotenv
+from google import genai
 
 # Load variables from the .env file if you chose Method B
 load_dotenv()

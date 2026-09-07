@@ -1,5 +1,6 @@
 import fitz  # PyMuPDF
 
+
 def parse_resume(content: bytes, filename: str) -> str:
     filename = filename.lower()
 

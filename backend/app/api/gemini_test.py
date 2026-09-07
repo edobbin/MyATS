@@ -1,5 +1,6 @@
 from fastapi import APIRouter, HTTPException
 from google import genai
+from google.genai import errors
 
 router = APIRouter()
 client = genai.Client()
@@ -17,8 +18,8 @@ def test_gemini():
             "message": response.text,
         }
 
-    except Exception as e:
+    except errors.APIError as e:
         raise HTTPException(
             status_code=503,
-            detail=f"Gemini unavailable: {str(e)}",
+            detail=f"Gemini unavailable: {e!s}",
         )

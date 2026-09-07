@@ -1,14 +1,15 @@
-from fastapi import APIRouter, Form, HTTPException, UploadFile, File
+from typing import Annotated
+
+from fastapi import APIRouter, File, Form, HTTPException, UploadFile
 
 from app.services.gemini_service import analyze_resume_with_gemini
 from app.services.process_resume import process_resume_upload
-#from app.services import parse_resume
 
 router = APIRouter()
 
 # Endpoint for analyzing job description and resume
 @router.post("/analysis/upload")
-async def analyze_information(job_description: str = Form(...), resume: UploadFile = File(...)):
+async def analyze_information(job_description: Annotated[str, Form()],resume: Annotated[UploadFile, File()]):
 
     # Placeholder for actual analysis logic
     # You can call your parse_resume function here to analyze the resume

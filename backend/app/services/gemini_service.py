@@ -1,10 +1,9 @@
-from http.client import HTTPException
-import os
-from google import genai
-from google.genai import errors
-from dotenv import load_dotenv
 import json
 import time
+
+from dotenv import load_dotenv
+from google import genai
+from google.genai import errors
 
 # Load variables from the .env file if you chose Method B
 load_dotenv()
@@ -165,7 +164,7 @@ def analyze_resume_with_gemini(
                 "error": "Gemini returned invalid JSON.",
             }
 
-        except Exception as e:
+        except errors.APIError as e:
             print(f"Unexpected Gemini error: {e}")
 
             return {
