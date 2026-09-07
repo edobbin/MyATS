@@ -1,17 +1,15 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from mangum import Mangum
 
 from app.api import gemini_test, health, job_analysis, job_description, resumes
 
 app = FastAPI(
     title="MyATS API",
     description="Backend API for AI-powered resume analysis and job matching.",
-    version="0.1.0",
+    version="1.0.0",
 )
 
-
-# Allow your React frontend to call the backend.
-# For local dev, Vite usually runs on http://localhost:5173.
 origins = [
     "http://localhost:5173",
     "http://127.0.0.1:5173",
@@ -27,12 +25,12 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# CORS setup here
 app.include_router(health.router, tags=["Health"])
 app.include_router(resumes.router, tags=["Resumes"])
 app.include_router(job_description.router, tags=["Job Descriptions"])
 app.include_router(job_analysis.router, tags=["Analysis"])
 app.include_router(gemini_test.router, tags=["Gemini Test"])
+
 
 @app.get("/")
 def root():
@@ -41,3 +39,6 @@ def root():
         "docs": "/docs",
         "health": "/health",
     }
+
+
+handler = Mangum(app)
