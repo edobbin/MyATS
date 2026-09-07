@@ -3,6 +3,7 @@ import time
 
 from google import genai
 from google.genai import errors
+
 from app.core.config import get_env
 
 # Load variables from the .env file if you chose Method B
