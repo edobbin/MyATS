@@ -8,4 +8,7 @@ python-docx
 python-multipart
 google-genai
 pymongo
-dotenv
+python-dotenv
+boto3
+ruff
+mangum

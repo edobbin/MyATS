@@ -1,46 +1,30 @@
-import './App.css'
-import Navbar from "./components/layout/Navbar";
+import AnalyzerForm from "./components/analyzer/AnalyzerForm";
+import ResultPage from "./components/results/ResultPage";
+import { Route, Routes } from "react-router-dom";
+import LoadingPage from "./components/loading/loadingPage";
+// import LoginPage from "./components/auth/LoginPage";
+// import SignUpPage from "./components/auth/SignUpPage";
+import AppLayout from "./components/layout/AppLayout";
 
 function App() {
-
   return (
     <>
-      <Navbar />
+      {/* <Navbar /> */}
 
       <main className="page-container">
-        <section className="hero-section">
-          <p className="eyebrow">AI Resume Analyzer</p>
-
-          <h1>Optimize your resume before you apply.</h1>
-
-          <p>
-            Upload your resume, paste a job description, and get an AI-powered
-            ATS report with scores, skill gaps, keywords, and resume suggestions.
-          </p>
-
-          <div className="hero-actions">
-            <a href="#analyzer" className="primary-button">
-              Analyze Resume
-            </a>
-
-            <a href="#sample-report" className="secondary-button">
-              View Sample Report
-            </a>
-          </div>
-        </section>
-
-        <section id="analyzer" className="placeholder-section">
-          <h2>Resume Analyzer</h2>
-          <p>Analyzer form will go here.</p>
-        </section>
-
-        <section id="sample-report" className="placeholder-section">
-          <h2>Sample Report</h2>
-          <p>Results dashboard will go here.</p>
-        </section>
+        <Routes>
+          {/* <Route path="/" element={<LoginPage />} />
+          <Route path="/signup" element={<SignUpPage />} /> */}
+          <Route element={<AppLayout />}>
+            <Route path="/" element={<AnalyzerForm />} />
+            {/* <Route path="/analyzer" element={<AnalyzerForm />} /> */}
+            <Route path="/analyzing" element={<LoadingPage />} />
+            <Route path="/results" element={<ResultPage />} />
+          </Route>
+        </Routes>
       </main>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
