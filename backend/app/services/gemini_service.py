@@ -1,16 +1,15 @@
 import json
 import time
 
-from dotenv import load_dotenv
 from google import genai
 from google.genai import errors
 
-# Load variables from the .env file if you chose Method B
-load_dotenv()
+from app.core.config import get_env
 
-# Initialize the client. 
-# It automatically reads the GEMINI_API_KEY environment variable.
-client = genai.Client()
+# Load variables from the .env file if you chose Method B
+GEMINI_API_KEY = get_env("GEMINI_API_KEY")
+
+client = genai.Client(api_key=GEMINI_API_KEY)
 
 prompt_template = """
 You are an AI resume and job application evaluator.

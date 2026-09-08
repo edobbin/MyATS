@@ -1,4 +1,6 @@
+import boto3
 from dotenv import load_dotenv
+from fastapi import APIRouter
 from google import genai
 
 # Load variables from the .env file if you chose Method B
@@ -23,3 +25,21 @@ def generate_text():
 
 if __name__ == "__main__":
     generate_text()
+
+
+router = APIRouter()
+
+@router.get("/test-ssm")
+def test_ssm():
+    ssm = boto3.client("ssm", region_name="us-east-1")
+
+    response = ssm.get_parameter(
+        Name="GEMINI_API_KEY",
+        WithDecryption=True,
+    )
+
+    api_key = response["Parameter"]["Value"]
+
+    return {
+        "parameter_loaded": bool(api_key)
+    }

@@ -24,8 +24,10 @@
     "docker:backend:run": "docker run --name myats-backend-dev --env-file ./backend/.env -p 8000:8000 myats-backend",
 
     "docker:dev": "docker compose up --build",
-    "docker:dev:down": "docker compose down"
-  },
+    "docker:dev:down": "docker compose down",
+
+    "docker:lambda:build": "powershell -ExecutionPolicy Bypass -File scripts/build-lambda.ps1",
+    "docker:lambda:push": "powershell -ExecutionPolicy Bypass -File scripts/push-ecr.ps1"  },
 
   "devDependencies": {
     "concurrently": "^9.2.4"
