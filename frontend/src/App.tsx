@@ -1,10 +1,15 @@
 import AnalyzerForm from "./components/analyzer/AnalyzerForm";
 import ResultPage from "./components/results/ResultPage";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import LoadingPage from "./components/loading/loadingPage";
-// import LoginPage from "./components/auth/LoginPage";
-// import SignUpPage from "./components/auth/SignUpPage";
-import AppLayout from "./components/layout/AppLayout";
+import LoginPage from "./components/auth/LoginPage";
+import SignUpPage from "./components/auth/SignUpPage";
+
+function ProtectedRoute({ children }: { children: React.ReactNode }) {
+  const isLoggedIn = false; // replace with Cognito auth state later
+
+  return isLoggedIn ? children : <Navigate to="/login" replace />;
+}
 
 function App() {
   return (
@@ -13,14 +18,32 @@ function App() {
 
       <main className="page-container">
         <Routes>
-          {/* <Route path="/" element={<LoginPage />} />
-          <Route path="/signup" element={<SignUpPage />} /> */}
-          <Route element={<AppLayout />}>
-            <Route path="/" element={<AnalyzerForm />} />
-            {/* <Route path="/analyzer" element={<AnalyzerForm />} /> */}
-            <Route path="/analyzing" element={<LoadingPage />} />
-            <Route path="/results" element={<ResultPage />} />
-          </Route>
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<SignUpPage />} />
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute>
+                <AnalyzerForm />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/analyzing"
+            element={
+              <ProtectedRoute>
+                <LoadingPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/results"
+            element={
+              <ProtectedRoute>
+                <ResultPage />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </main>
     </>
