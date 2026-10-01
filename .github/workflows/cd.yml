@@ -1,0 +1,14 @@
+name: MyATS CD
+
+on:
+  push:
+
+  pull_request:
+    branches:
+      - main
+      - production
+
+jobs:
+  deploy:
+    name: Deploy Backend to AWS
+    runs-on: ubuntu-latest
